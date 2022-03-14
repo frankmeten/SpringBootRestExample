@@ -68,14 +68,6 @@ public class BirdRestController {
         Bird s = new Bird();
         s.setColor(color);
 
-//        ExampleMatcher matcher = ExampleMatcher.matching()
-//                .withIgnorePaths("id")
-//                .withIgnorePaths("color")
-//                .withIgnorePaths("weight")
-//                .withIgnorePaths("height")
-//                .withIncludeNullValues()
-//                .withStringMatcher(ExampleMatcher.StringMatcher.EXACT);
-
         ExampleMatcher matcher = ExampleMatcher.matchingAny();
 
         Example<Bird> example = Example.of(s, matcher);

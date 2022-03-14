@@ -1,5 +1,6 @@
 package com.springboot.springweb.entity;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
 import javax.persistence.Entity;
@@ -13,11 +14,24 @@ import java.util.Date;
 public class Sighting {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
+
     private long bird_id;
     private String location;
+
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+
     private Date dataAndTime;
 
     public Sighting() {
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
 
@@ -44,4 +58,6 @@ public class Sighting {
     public void setDataAndTime(Date dataAndTime) {
         this.dataAndTime = dataAndTime;
     }
+
+
 }
