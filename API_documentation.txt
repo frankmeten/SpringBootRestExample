@@ -1,0 +1,90 @@
+
+**Bird Operations**
+
+GET all bird
+
+curl --location --request GET "http://localhost:8080/birdsightapi/bird/"
+
+
+GET bird by color
+
+curl --location --request GET "http://localhost:8080/birdsightapi/bird/color/black"
+
+
+GET bird by id
+
+curl --location --request GET "http://localhost:8080/birdsightapi/bird/3"
+
+
+GET bird by name
+
+curl --location --request GET "http://localhost:8080/birdsightapi/bird/name/sea%20gull"
+
+
+
+POST bird
+
+curl --location --request POST "http://localhost:8080/birdsightapi/bird/" --header "Content-Type: application/json" --data-raw "{
+    \"name\":\"sea gull\",
+    \"color\":\"black\",
+    \"weight\":\"111\",
+    \"height\":222
+}"
+
+
+PUT bird
+
+curl --location --request PUT "http://localhost:8080/birdsightapi/bird/" --header "Content-Type: application/json" --data-raw "{
+    \"id\":9,
+    \"name\":\"sea gull\",
+    \"color\":\"red\",
+    \"weight\":\"5555\",
+    \"height\":666
+}"
+
+
+DELETE bird
+
+curl --location --request DELETE "http://localhost:8080/birdsightapi/bird/2"
+
+
+**Sighting Operations**
+
+GET all sighting
+
+curl --location --request GET "http://localhost:8080/birdsightapi/sighting/"
+
+
+GET sighting by location
+
+curl --location --request GET "http://localhost:8080/birdsightapi/sighting/location/henan China"
+
+
+GET sighting by id
+
+curl --location --request GET "http://localhost:8080/birdsightapi/sighting/3"
+
+
+POST sighting
+
+curl --location --request POST "http://localhost:8080/birdsightapi/sighting/" --header "Content-Type: application/json" --data-raw "{
+    \"bird_id\":1,
+    \"location\":\"Shandong China\",
+    \"dataAndTime\":\"2022-03-14 22:01:21\"
+}"
+
+
+PUT sighting
+
+curl --location --request PUT "http://localhost:8080/birdsightapi/sighting/" --header "Content-Type: application/json" --data-raw "{
+    \"id\":6,
+    \"bird_id\":1,
+    \"location\":\"Shandong Chiping China\",
+    \"dataAndTime\":\"2022-03-14 22:01:21\"
+}"
+
+
+DELETE sighting
+
+curl --location --request DELETE "http://localhost:8080/birdsightapi/sighting/2"
+
