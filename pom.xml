@@ -8,9 +8,9 @@
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.springboot.springweb</groupId>
-	<artifactId>studentrestapi</artifactId>
+	<artifactId>birdsightrestapi</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>studentrestapi</name>
+	<name>birdsightrestapi</name>
 	<description>Exploring spring web and spring boot</description>
 	<properties>
 		<java.version>8</java.version>

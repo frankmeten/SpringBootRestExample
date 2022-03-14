@@ -12,7 +12,7 @@ import org.springframework.web.client.RestTemplate;
 @SpringBootTest
 class BirdSightrestapiApplicationTests {
 
-	@Value("${studentrestapi.services.url}")
+	@Value("${birdsightapi.services.url}")
 	private String baseURL;
 	@Test
 	public void testGetProduct() {
@@ -20,7 +20,7 @@ class BirdSightrestapiApplicationTests {
 		RestTemplate restTemp = new RestTemplate();
 		Bird bird = restTemp.getForObject(baseURL+"7", Bird.class);
 		assertNotNull(bird);
-		assertEquals("devi", bird.getName());
+		assertEquals("dhanalakshmi", bird.getName());
 	}
 	
 	@Test
