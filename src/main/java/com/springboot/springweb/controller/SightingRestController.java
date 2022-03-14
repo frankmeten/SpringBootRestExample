@@ -1,12 +1,15 @@
 package com.springboot.springweb.controller;
 
 import com.springboot.springweb.entity.Sighting;
+import com.springboot.springweb.exception.ResourceNotFoundException;
 import com.springboot.springweb.repository.SightingRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -28,13 +31,14 @@ public class SightingRestController {
     }
 
     @GetMapping("/sighting/{id}")
-    public Sighting getsighting(@PathVariable("id") long id) {
+    public ResponseEntity<Sighting> getsighting(@PathVariable("id") long id) {
         LOGGER.info("finding product by id " + id);
-        return sightingrepo.findById(id).get();
+        Sighting sighting = sightingrepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Not found Sighting with id = " + id));
+        return new ResponseEntity<>(sighting, HttpStatus.OK);
     }
 
-    @GetMapping("/sighting/name/{name}")
-    public List<Sighting> getsightingByName(@PathVariable("name") String location) {
+    @GetMapping("/sighting/location/{location}")
+    public ResponseEntity<List<Sighting>> getsightingByLocation(@PathVariable("location") String location) {
         LOGGER.info("finding product by location " + location);
 
         Sighting s = new Sighting();
@@ -42,14 +46,16 @@ public class SightingRestController {
 
         ExampleMatcher matcher = ExampleMatcher.matching()
                 .withIgnorePaths("id")
-                .withIgnorePaths("color")
+                .withIgnorePaths("bird_id")
+                .withIgnorePaths("dataAndTime")
                 .withIncludeNullValues()
                 .withStringMatcher(ExampleMatcher.StringMatcher.EXACT);
 
 //        ExampleMatcher matcher = ExampleMatcher.matchingAny();
 
         Example<Sighting> example = Example.of(s, matcher);
-        return sightingrepo.findAll(example);
+        List<Sighting> ls = sightingrepo.findAll(example);
+        return new ResponseEntity<>(ls, HttpStatus.OK);
     }
 
     @GetMapping("/sighting/birdid/{birdid}")
