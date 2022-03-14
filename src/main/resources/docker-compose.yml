@@ -1,0 +1,22 @@
+  # The official MySQL (https://hub.docker.com/_/mysql/) supports only one MYSQL_DATABASE environment variable.
+  # By modifying the entrypoint and passing shell script, you can create multiple dbs without having to make a mysql image just for this purpose.
+  
+version: '3.3'
+
+services:
+  # Some other service connecting to mysql
+  
+  db:
+    image: mysql:5.7
+    environment:
+      - MYSQL_USER=frank
+      - MYSQL_PASSWORD=pa88w0rd
+      - MYSQL_ROOT_PASSWORD=pa88w0rd
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    entrypoint:
+      sh -c "
+        echo 'CREATE DATABASE IF NOT EXISTS birdsight4;' > /docker-entrypoint-initdb.d/init.sql;
+        /usr/local/bin/docker-entrypoint.sh --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+      "
+    ports:
+      - 3306:3306 
