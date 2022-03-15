@@ -21,7 +21,7 @@ public class Sighting {
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
 
-    private Date dataAndTime;
+    private Date sightingTime;
 
     public Sighting() {
     }
@@ -51,12 +51,12 @@ public class Sighting {
         this.location = location;
     }
 
-    public Date getDataAndTime() {
-        return dataAndTime;
+    public Date getSightingTime() {
+        return sightingTime;
     }
 
-    public void setDataAndTime(Date dataAndTime) {
-        this.dataAndTime = dataAndTime;
+    public void setSightingTime(Date dataAndTime) {
+        this.sightingTime = dataAndTime;
     }
 
 
