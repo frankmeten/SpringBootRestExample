@@ -1,7 +1,9 @@
 package com.springboot.springweb.controller;
 
+import com.springboot.springweb.entity.Bird;
 import com.springboot.springweb.entity.Sighting;
 import com.springboot.springweb.exception.ResourceNotFoundException;
+import com.springboot.springweb.repository.BirdRepository;
 import com.springboot.springweb.repository.SightingRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -20,6 +22,9 @@ public class SightingRestController {
 
     @Autowired
     SightingRepository sightingrepo;
+
+    @Autowired
+    BirdRepository birdrepo;
 
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SightingRestController.class);
@@ -69,6 +74,34 @@ public class SightingRestController {
 
         Example<Sighting> example = Example.of(sighting, matcher);
         return sightingrepo.findAll(example);
+    }
+
+
+    @GetMapping("/sighting/bird/{birdname}")
+    public List<Sighting> getsightingByColor(@PathVariable("birdname") String birdName) {
+        LOGGER.info("finding product by birdid " + birdName);
+
+        Bird b = new Bird();
+        b.setName(birdName);
+
+        ExampleMatcher birdMatcher = ExampleMatcher.matching()
+                .withIgnorePaths("id")
+                .withIgnorePaths("color")
+                .withIgnorePaths("weight")
+                .withIgnorePaths("height")
+                .withIncludeNullValues()
+                .withStringMatcher(ExampleMatcher.StringMatcher.EXACT);
+
+        Example<Bird> birdExample = Example.of(b, birdMatcher);
+        long birdId = birdrepo.findAll(birdExample).get(0).getId();
+
+        Sighting sighting = new Sighting();
+        sighting.setBird_id(birdId);
+
+        ExampleMatcher sightingMatcher = ExampleMatcher.matchingAny();
+
+        Example<Sighting> sightingExample = Example.of(sighting, sightingMatcher);
+        return sightingrepo.findAll(sightingExample);
     }
 
 
