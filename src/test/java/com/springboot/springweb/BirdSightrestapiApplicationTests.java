@@ -15,7 +15,7 @@ class BirdSightrestapiApplicationTests {
 	@Value("${birdsightapi.services.url}")
 	private String baseURL;
 	@Test
-	public void testGetProduct() {
+	public void testGetBird() {
 		System.out.println(baseURL);
 		RestTemplate restTemp = new RestTemplate();
 		Bird bird = restTemp.getForObject(baseURL+"7", Bird.class);
@@ -24,20 +24,20 @@ class BirdSightrestapiApplicationTests {
 	}
 	
 	@Test
-	public void testCreateProduct() {
+	public void testCreateBird() {
 		RestTemplate restTemp = new RestTemplate();
 		Bird bird = new Bird();
 		bird.setName("dhanalakshmi");
 		bird.setWeight(96.90);
 		bird.setHeight(34.90);
-		Bird newstudent = restTemp.postForObject(baseURL, bird, Bird.class);
-		assertNotNull(newstudent);
-		assertNotNull(newstudent.getId());
-		assertEquals("dhanalakshmi",newstudent.getName());
+		Bird bird1 = restTemp.postForObject(baseURL, bird, Bird.class);
+		assertNotNull(bird1);
+		assertNotNull(bird1.getId());
+		assertEquals("dhanalakshmi",bird1.getName());
 	}
 	
 	@Test
-	public void testUpdateProduct() {
+	public void testUpdateBird() {
 		RestTemplate restTemp = new RestTemplate();
 		Bird bird = restTemp.getForObject(baseURL+"7", Bird.class);
 		bird.setWeight(96.9);
