@@ -44,8 +44,8 @@ public class BirdRestController {
     public List<Bird> getbirdByName(@PathVariable("name") String name) {
         LOGGER.info("finding product by name " + name);
 
-        Bird s = new Bird();
-        s.setName(name);
+        Bird bird = new Bird();
+        bird.setName(name);
 
         ExampleMatcher matcher = ExampleMatcher.matching()
                 .withIgnorePaths("id")
@@ -57,20 +57,39 @@ public class BirdRestController {
 
 //        ExampleMatcher matcher = ExampleMatcher.matchingAny();
 
-        Example<Bird> example = Example.of(s, matcher);
+        Example<Bird> example = Example.of(bird, matcher);
         return birdrepo.findAll(example);
     }
 
     @GetMapping("/bird/color/{color}")
     public List<Bird> getbirdByColor(@PathVariable("color") String color) {
-        LOGGER.info("finding product by name " + color);
+        LOGGER.info("finding product by color " + color);
 
-        Bird s = new Bird();
-        s.setColor(color);
+        Bird bird = new Bird();
+        bird.setColor(color);
 
         ExampleMatcher matcher = ExampleMatcher.matchingAny();
 
-        Example<Bird> example = Example.of(s, matcher);
+        Example<Bird> example = Example.of(bird, matcher);
+        return birdrepo.findAll(example);
+    }
+
+    @GetMapping("/bird/name/{name}/color/{color}")
+    public List<Bird> getbirdByNameColor(@PathVariable("name") String name, @PathVariable("color") String color) {
+        LOGGER.info("finding product by name " + name + "by color " + color);
+
+        Bird bird = new Bird();
+        bird.setName(name);
+        bird.setColor(color);
+
+        ExampleMatcher matcher = ExampleMatcher.matching()
+                .withIgnorePaths("id")
+                .withIgnorePaths("weight")
+                .withIgnorePaths("height")
+                .withIncludeNullValues()
+                .withStringMatcher(ExampleMatcher.StringMatcher.EXACT);
+
+        Example<Bird> example = Example.of(bird, matcher);
         return birdrepo.findAll(example);
     }
 
