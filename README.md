@@ -27,3 +27,5 @@ RUN java -jar target/birdsightrestapi-0.0.1-SNAPSHOT.jar
 The app will start running at http://localhost:8080 
   
 Explore Rest APIs:  reference http://localhost:8080/birdsightapi/swagger-ui/index.html
+
+
