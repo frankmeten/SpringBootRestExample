@@ -12,6 +12,4 @@ public interface SightingRepository extends JpaRepository<Sighting, Long> {
     List<Sighting> findAllBySightingTimeBetween(
             Date publicationTimeStart,
             Date publicationTimeEnd);
-
-
 }

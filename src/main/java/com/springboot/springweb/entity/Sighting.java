@@ -3,24 +3,30 @@ package com.springboot.springweb.entity;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
 @Entity
 @EnableAutoConfiguration
+@Table(uniqueConstraints = {@UniqueConstraint(name = "UniqueBirdAndLocationAndDateTime", columnNames = {"birdId", "location", "sightingTime"})})
 public class Sighting {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-    private long bird_id;
+//    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.MERGE)
+//    @Column(unique = true)
+//    @Embedded
+    @JoinColumn(name = "birdId", referencedColumnName = "id")
+//    @JoinColumn(name = "bird_id")
+//    @JoinColumn(name = "birdId")
+    private Bird bird;
+
+    @Column(columnDefinition = "varchar(80)")
     private String location;
 
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
-
     private Date sightingTime;
 
     public Sighting() {
@@ -32,15 +38,6 @@ public class Sighting {
 
     public void setId(long id) {
         this.id = id;
-    }
-
-
-    public long getBird_id() {
-        return bird_id;
-    }
-
-    public void setBird_id(long bird_id) {
-        this.bird_id = bird_id;
     }
 
     public String getLocation() {
@@ -59,5 +56,11 @@ public class Sighting {
         this.sightingTime = dataAndTime;
     }
 
+    public Bird getBird() {
+        return bird;
+    }
 
+    public void setBird(Bird bird) {
+        this.bird = bird;
+    }
 }

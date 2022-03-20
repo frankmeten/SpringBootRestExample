@@ -142,8 +142,10 @@ class BirdSightrestapiApplicationTests {
 	@Test
 	public void testCreateSighting() {
 		RestTemplate restTemp = new RestTemplate();
+
+		Bird bird = restTemp.getForObject(birdBaseURL+"36", Bird.class);
 		Sighting sighting = new Sighting();
-		sighting.setBird_id(1);
+		sighting.setBird(bird);
 
 		Date date = new Date();
 
@@ -160,77 +162,5 @@ class BirdSightrestapiApplicationTests {
 		assertNotNull(sighting1.getId());
 		assertEquals("Beijing China",sighting1.getLocation());
 	}
-	@Test
-	public void testCreateSighting2() {
-		RestTemplate restTemp = new RestTemplate();
-		Sighting sighting = new Sighting();
-		sighting.setBird_id(1);
 
-		Date date = new Date();
-
-		try {
-			date = sdf.parse("2019-03-14 22:01:21");
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-
-		sighting.setSightingTime(date);
-		sighting.setLocation("Shanghai China");
-		Sighting sighting1 = restTemp.postForObject(sightingBaseURL, sighting, Sighting.class);
-		assertNotNull(sighting1);
-		assertNotNull(sighting1.getId());
-		assertEquals("Shanghai China",sighting1.getLocation());
-	}
-	@Test
-	public void testCreateSighting3() {
-		RestTemplate restTemp = new RestTemplate();
-		Sighting sighting = new Sighting();
-		sighting.setBird_id(1);
-
-		Date date = new Date();
-
-		try {
-			date = sdf.parse("2021-01-14 22:01:21");
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-
-		sighting.setSightingTime(date);
-		sighting.setLocation("Tianjin China");
-		Sighting sighting1 = restTemp.postForObject(sightingBaseURL, sighting, Sighting.class);
-		assertNotNull(sighting1);
-		assertNotNull(sighting1.getId());
-		assertEquals("Tianjin China",sighting1.getLocation());
-	}
-	@Test
-	public void testCreateSighting4() {
-		RestTemplate restTemp = new RestTemplate();
-		Sighting sighting = new Sighting();
-		sighting.setBird_id(1);
-
-		Date date = new Date();
-
-		try {
-			date = sdf.parse("2020-03-14 22:01:21");
-		} catch (ParseException e) {
-			e.printStackTrace();
-		}
-
-		sighting.setSightingTime(date);
-		sighting.setLocation("Shandong China");
-		Sighting sighting1 = restTemp.postForObject(sightingBaseURL, sighting, Sighting.class);
-		assertNotNull(sighting1);
-		assertNotNull(sighting1.getId());
-		assertEquals("Shandong China",sighting1.getLocation());
-	}
-
-
-	@Test
-	public void testGetSighting2() {
-		System.out.println(sightingBaseURL);
-		RestTemplate restTemp = new RestTemplate();
-		Sighting sighting = restTemp.getForObject(sightingBaseURL+"3", Sighting.class);
-		assertNotNull(sighting);
-//		assertEquals("Tianjin China", sighting.getLocation());
-	}
 }

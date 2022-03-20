@@ -70,8 +70,9 @@ public class SightingRestController {
     public List<Sighting> getsightingByColor(@PathVariable("birdid") long birdid) {
         LOGGER.info("finding sighting by birdid " + birdid);
 
+        Bird b = birdrepo.getById(birdid);
         Sighting sighting = new Sighting();
-        sighting.setBird_id(birdid);
+        sighting.setBird(b);
 
         ExampleMatcher matcher = ExampleMatcher.matchingAny();
 
@@ -96,10 +97,10 @@ public class SightingRestController {
                 .withStringMatcher(ExampleMatcher.StringMatcher.EXACT);
 
         Example<Bird> birdExample = Example.of(b, birdMatcher);
-        long birdId = birdrepo.findAll(birdExample).get(0).getId();
+        Bird bird = birdrepo.findAll(birdExample).get(0);
 
         Sighting sighting = new Sighting();
-        sighting.setBird_id(birdId);
+        sighting.setBird(bird);
 
         ExampleMatcher sightingMatcher = ExampleMatcher.matchingAny();
 

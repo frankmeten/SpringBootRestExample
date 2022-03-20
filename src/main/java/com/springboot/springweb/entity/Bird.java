@@ -2,21 +2,25 @@ package com.springboot.springweb.entity;
 
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
 @EnableAutoConfiguration
+@Table(uniqueConstraints = {@UniqueConstraint(name = "UniqueNameAndColor", columnNames = {"name", "color"})})
 public class Bird {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    @Column(columnDefinition = "varchar(30)")
     private String name;
+    @Column(columnDefinition = "varchar(20)")
     private String color;
     private double weight;
     private double height;
+
+    @OneToOne(mappedBy = "bird")
+    private Sighting sighting;
+
 
     public Bird() {
     }
