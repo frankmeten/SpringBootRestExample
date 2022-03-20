@@ -47,7 +47,7 @@ CREATE TABLE `sighting` (
   UNIQUE KEY `UniqueBirdAndLocationAndDateTime` (
     `bird_id`, `location`, `sighting_time`
   ),
-  CONSTRAINT `FKpeetk3oriiouyu7thrg9xsski` FOREIGN KEY (`bird_id`) REFERENCES `bird` (`id`)
+  CONSTRAINT `FKBirdTableID` FOREIGN KEY (`bird_id`) REFERENCES `bird` (`id`)
 ) ENGINE = InnoDB AUTO_INCREMENT = 13 DEFAULT CHARSET = utf8mb4 COLLATE = utf8mb4_unicode_ci;
 LOCK TABLES `sighting` WRITE;
 INSERT INTO `sighting`
