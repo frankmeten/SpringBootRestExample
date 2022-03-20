@@ -9,14 +9,10 @@ services:
   db:
     image: mysql:5.7
     environment:
-      - MYSQL_USER=frank
-      - MYSQL_PASSWORD=pa88w0rd
       - MYSQL_ROOT_PASSWORD=pa88w0rd
       - MYSQL_ALLOW_EMPTY_PASSWORD=yes
-    entrypoint:
-      sh -c "
-        echo 'CREATE DATABASE IF NOT EXISTS bird_sight;' > /docker-entrypoint-initdb.d/init.sql;
-        /usr/local/bin/docker-entrypoint.sh --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
-      "
+    command: --init-file /data/application/init.sql
+    volumes:
+      - ./init.sql:/data/application/init.sql
     ports:
       - 3306:3306 
