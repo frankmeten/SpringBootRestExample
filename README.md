@@ -10,7 +10,7 @@ Prerequisite
 
 open terminal go to the directory that birdSighting.zip located
 
-unzip birdSighting.zip
+unzip -d birdSighting birdSighting.zip
 cd birdSighting
 RUN docker-compose -f src/main/resources/docker-compose.yml up
 
