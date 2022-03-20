@@ -33,20 +33,20 @@ public class SightingRestController {
     private static final Logger LOGGER = LoggerFactory.getLogger(SightingRestController.class);
 
     @GetMapping("/sighting/")
-    public List<Sighting> getAllsightings() {
+    public List<Sighting> getAllSightings() {
 
         return sightingrepo.findAll();
     }
 
     @GetMapping("/sighting/{id}")
-    public ResponseEntity<Sighting> getsighting(@PathVariable("id") long id) {
+    public ResponseEntity<Sighting> getSighting(@PathVariable("id") long id) {
         LOGGER.info("finding sighting by id " + id);
         Sighting sighting = sightingrepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Not found Sighting with id = " + id));
         return new ResponseEntity<>(sighting, HttpStatus.OK);
     }
 
     @GetMapping("/sighting/location/{location}")
-    public ResponseEntity<List<Sighting>> getsightingByLocation(@PathVariable("location") String location) {
+    public ResponseEntity<List<Sighting>> getSightingByLocation(@PathVariable("location") String location) {
         LOGGER.info("finding sighting by location " + location);
 
         Sighting s = new Sighting();
@@ -67,7 +67,7 @@ public class SightingRestController {
     }
 
     @GetMapping("/sighting/birdid/{birdid}")
-    public List<Sighting> getsightingByColor(@PathVariable("birdid") long birdid) {
+    public List<Sighting> getSightingByColor(@PathVariable("birdid") long birdid) {
         LOGGER.info("finding sighting by birdid " + birdid);
 
         Bird b = birdrepo.getById(birdid);
@@ -82,7 +82,7 @@ public class SightingRestController {
 
 
     @GetMapping("/sighting/bird/{birdname}")
-    public List<Sighting> getsightingByBirdName(@PathVariable("birdname") String birdName) {
+    public List<Sighting> getSightingByBirdName(@PathVariable("birdname") String birdName) {
         LOGGER.info("finding sighting by birdName " + birdName);
 
         Bird b = new Bird();
@@ -110,7 +110,7 @@ public class SightingRestController {
 
 
     @GetMapping("/sighting/start/{startTime}/end/{endTime}")
-    public List<Sighting> getsightingBetween(@PathVariable("startTime") String startTime, @PathVariable("endTime") String endTime) throws ParseException {
+    public List<Sighting> getSightingBetween(@PathVariable("startTime") String startTime, @PathVariable("endTime") String endTime) throws ParseException {
         LOGGER.info("finding sighting by startTime " + startTime + "endTime " + endTime);
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
@@ -122,17 +122,17 @@ public class SightingRestController {
 
 
     @PostMapping("/sighting/")
-    public Sighting createsighting(@RequestBody Sighting sighting) {
+    public Sighting createSighting(@RequestBody Sighting sighting) {
         return sightingrepo.save(sighting);
     }
 
     @PutMapping("/sighting/")
-    public Sighting updatesighting(@RequestBody Sighting sighting) {
+    public Sighting updateSighting(@RequestBody Sighting sighting) {
         return sightingrepo.save(sighting);
     }
 
     @DeleteMapping("/sighting/{id}")
-    public void deletesighting(@PathVariable("id") long id) {
+    public void deleteSighting(@PathVariable("id") long id) {
         sightingrepo.deleteById(id);
     }
 }
