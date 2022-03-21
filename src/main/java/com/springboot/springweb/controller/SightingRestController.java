@@ -63,11 +63,11 @@ public class SightingRestController {
         return new ResponseEntity<>(ls, HttpStatus.OK);
     }
 
-    @GetMapping("/sighting/birdid/{birdid}")
-    public List<Sighting> getSightingByColor(@PathVariable("birdid") long birdid) {
-        LOGGER.info("finding sighting by birdid " + birdid);
+    @GetMapping("/sighting/birdid/{birdId}")
+    public List<Sighting> getSightingByColor(@PathVariable("birdId") long birdId) {
+        LOGGER.info("finding sighting by birdId " + birdId);
 
-        Bird b = birdRepo.getById(birdid);
+        Bird b = birdRepo.getById(birdId);
         Sighting sighting = new Sighting();
         sighting.setBird(b);
 
@@ -77,31 +77,10 @@ public class SightingRestController {
         return sightingRepo.findAll(example);
     }
 
-    @GetMapping("/sighting/bird/{birdname}")
-    public List<Sighting> getSightingByBirdName(@PathVariable("birdname") String birdName) {
+    @GetMapping("/sighting/bird/{birdName}")
+    public List<Sighting> getSightingByBirdName(@PathVariable("birdName") String birdName) {
         LOGGER.info("finding sighting by birdName " + birdName);
-
-        Bird b = new Bird();
-        b.setName(birdName);
-
-        ExampleMatcher birdMatcher = ExampleMatcher.matching()
-                .withIgnorePaths("id")
-                .withIgnorePaths("color")
-                .withIgnorePaths("weight")
-                .withIgnorePaths("height")
-                .withIncludeNullValues()
-                .withStringMatcher(ExampleMatcher.StringMatcher.EXACT);
-
-        Example<Bird> birdExample = Example.of(b, birdMatcher);
-        Bird bird = birdRepo.findAll(birdExample).get(0);
-
-        Sighting sighting = new Sighting();
-        sighting.setBird(bird);
-
-        ExampleMatcher sightingMatcher = ExampleMatcher.matchingAny();
-
-        Example<Sighting> sightingExample = Example.of(sighting, sightingMatcher);
-        return sightingRepo.findAll(sightingExample);
+        return sightingRepo.findAllByBirdName(birdName);
     }
 
     @GetMapping("/sighting/start/{startTime}/end/{endTime}")
