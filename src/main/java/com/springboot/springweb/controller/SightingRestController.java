@@ -24,24 +24,23 @@ import java.util.List;
 public class SightingRestController {
 
     @Autowired
-    SightingRepository sightingrepo;
+    SightingRepository sightingRepo;
 
     @Autowired
-    BirdRepository birdrepo;
-
+    BirdRepository birdRepo;
 
     private static final Logger LOGGER = LoggerFactory.getLogger(SightingRestController.class);
 
     @GetMapping("/sighting/")
     public List<Sighting> getAllSightings() {
 
-        return sightingrepo.findAll();
+        return sightingRepo.findAll();
     }
 
     @GetMapping("/sighting/{id}")
     public ResponseEntity<Sighting> getSighting(@PathVariable("id") long id) {
         LOGGER.info("finding sighting by id " + id);
-        Sighting sighting = sightingrepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Not found Sighting with id = " + id));
+        Sighting sighting = sightingRepo.findById(id).orElseThrow(() -> new ResourceNotFoundException("Not found Sighting with id = " + id));
         return new ResponseEntity<>(sighting, HttpStatus.OK);
     }
 
@@ -59,10 +58,8 @@ public class SightingRestController {
                 .withIncludeNullValues()
                 .withStringMatcher(ExampleMatcher.StringMatcher.EXACT);
 
-//        ExampleMatcher matcher = ExampleMatcher.matchingAny();
-
         Example<Sighting> example = Example.of(s, matcher);
-        List<Sighting> ls = sightingrepo.findAll(example);
+        List<Sighting> ls = sightingRepo.findAll(example);
         return new ResponseEntity<>(ls, HttpStatus.OK);
     }
 
@@ -70,16 +67,15 @@ public class SightingRestController {
     public List<Sighting> getSightingByColor(@PathVariable("birdid") long birdid) {
         LOGGER.info("finding sighting by birdid " + birdid);
 
-        Bird b = birdrepo.getById(birdid);
+        Bird b = birdRepo.getById(birdid);
         Sighting sighting = new Sighting();
         sighting.setBird(b);
 
         ExampleMatcher matcher = ExampleMatcher.matchingAny();
 
         Example<Sighting> example = Example.of(sighting, matcher);
-        return sightingrepo.findAll(example);
+        return sightingRepo.findAll(example);
     }
-
 
     @GetMapping("/sighting/bird/{birdname}")
     public List<Sighting> getSightingByBirdName(@PathVariable("birdname") String birdName) {
@@ -97,7 +93,7 @@ public class SightingRestController {
                 .withStringMatcher(ExampleMatcher.StringMatcher.EXACT);
 
         Example<Bird> birdExample = Example.of(b, birdMatcher);
-        Bird bird = birdrepo.findAll(birdExample).get(0);
+        Bird bird = birdRepo.findAll(birdExample).get(0);
 
         Sighting sighting = new Sighting();
         sighting.setBird(bird);
@@ -105,9 +101,8 @@ public class SightingRestController {
         ExampleMatcher sightingMatcher = ExampleMatcher.matchingAny();
 
         Example<Sighting> sightingExample = Example.of(sighting, sightingMatcher);
-        return sightingrepo.findAll(sightingExample);
+        return sightingRepo.findAll(sightingExample);
     }
-
 
     @GetMapping("/sighting/start/{startTime}/end/{endTime}")
     public List<Sighting> getSightingBetween(@PathVariable("startTime") String startTime, @PathVariable("endTime") String endTime) throws ParseException {
@@ -117,22 +112,21 @@ public class SightingRestController {
         Date start = sdf.parse(startTime);
         Date end = sdf.parse(endTime);
 
-        return sightingrepo.findAllBySightingTimeBetween(start, end);
+        return sightingRepo.findAllBySightingTimeBetween(start, end);
     }
-
 
     @PostMapping("/sighting/")
     public Sighting createSighting(@RequestBody Sighting sighting) {
-        return sightingrepo.save(sighting);
+        return sightingRepo.save(sighting);
     }
 
     @PutMapping("/sighting/")
     public Sighting updateSighting(@RequestBody Sighting sighting) {
-        return sightingrepo.save(sighting);
+        return sightingRepo.save(sighting);
     }
 
     @DeleteMapping("/sighting/{id}")
     public void deleteSighting(@PathVariable("id") long id) {
-        sightingrepo.deleteById(id);
+        sightingRepo.deleteById(id);
     }
 }

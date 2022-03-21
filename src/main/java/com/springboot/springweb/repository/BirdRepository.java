@@ -5,7 +5,5 @@ import org.springframework.data.jpa.repository.JpaRepository;
 
 public interface BirdRepository extends JpaRepository<Bird, Long> {
 
-    Bird findByNameAndColor(
-            String name,
-            String color);
+    Bird findByNameAndColor(String name, String color);
 }

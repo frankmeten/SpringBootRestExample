@@ -11,13 +11,11 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-
 @RestController
 public class BirdRestController {
 
     @Autowired
     BirdRepository birdRepo;
-
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BirdRestController.class);
 
@@ -49,12 +47,9 @@ public class BirdRestController {
     @GetMapping("/bird/color/{color}")
     public List<Bird> getBirdByColor(@PathVariable("color") String color) {
         LOGGER.info("finding bird by color " + color);
-
         Bird bird = new Bird();
         bird.setColor(color);
-
         ExampleMatcher matcher = ExampleMatcher.matchingAny();
-
         Example<Bird> example = Example.of(bird, matcher);
         return birdRepo.findAll(example);
     }
@@ -66,7 +61,6 @@ public class BirdRestController {
         return birdRepo.findByNameAndColor(name, color);
     }
 
-
     @PostMapping("/bird/")
     public Bird createBird(@RequestBody Bird bird) {
         return birdRepo.save(bird);
@@ -74,11 +68,6 @@ public class BirdRestController {
 
     @PutMapping("/bird/")
     public Bird updateBird(@RequestBody Bird bird) {
-
-        LOGGER.info("update bird :");
-        LOGGER.info("update bird : [name " + bird.getName() + "],[color: " + bird.getColor() + "]");
-        LOGGER.info("update bird : [weight " + bird.getWeight() + "],[height: " + bird.getHeight() + "]");
-
         Bird newBird = birdRepo.findByNameAndColor(bird.getName(), bird.getColor());
         newBird.setWeight(bird.getWeight());
         newBird.setHeight(bird.getHeight());

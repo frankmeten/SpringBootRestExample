@@ -9,7 +9,5 @@ import java.util.List;
 public interface SightingRepository extends JpaRepository<Sighting, Long> {
 
 
-    List<Sighting> findAllBySightingTimeBetween(
-            Date publicationTimeStart,
-            Date publicationTimeEnd);
+    List<Sighting> findAllBySightingTimeBetween(Date publicationTimeStart, Date publicationTimeEnd);
 }

@@ -18,9 +18,6 @@ public class Bird {
     private double weight;
     private double height;
 
-    @OneToOne(mappedBy = "bird")
-    private Sighting sighting;
-
 
     public Bird() {
     }

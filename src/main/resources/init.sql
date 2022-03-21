@@ -53,23 +53,23 @@ LOCK TABLES `sighting` WRITE;
 INSERT INTO `sighting`
 VALUES
   (
-    6, 'Beijing China', '2012-03-19 14:14:53',
+    1, 'Beijing China', '2012-03-19 14:14:53',
     2
   ),
   (
-    3, 'Shanghai China', '2020-03-19 14:14:53',
+    2, 'Shanghai China', '2020-03-19 14:14:53',
     3
   ),
   (
-    8, 'Tianjin China', '2021-03-19 14:14:53',
+    3, 'Tianjin China', '2021-03-19 14:14:53',
     3
   ),
   (
-    10, 'Chongqing China', '2022-01-19 14:14:53',
+    4, 'Chongqing China', '2022-01-19 14:14:53',
     3
   ),
   (
-    1, 'Shandong China', '2022-02-19 14:14:53',
+    5, 'Shandong China', '2022-02-19 14:14:53',
     4
   );
 UNLOCK TABLES;

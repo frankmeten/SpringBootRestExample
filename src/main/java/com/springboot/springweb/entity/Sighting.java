@@ -14,13 +14,8 @@ public class Sighting {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
-//    @OneToOne(cascade = CascadeType.ALL)
-    @OneToOne(cascade = CascadeType.MERGE)
-//    @Column(unique = true)
-//    @Embedded
+    @ManyToOne(cascade = CascadeType.MERGE)
     @JoinColumn(name = "birdId", referencedColumnName = "id")
-//    @JoinColumn(name = "bird_id")
-//    @JoinColumn(name = "birdId")
     private Bird bird;
 
     @Column(columnDefinition = "varchar(80)")
