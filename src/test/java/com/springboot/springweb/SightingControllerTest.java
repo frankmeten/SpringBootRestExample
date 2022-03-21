@@ -84,7 +84,7 @@ class SightingControllerTest {
 
         Example<Sighting> sightingExample = Example.of(sighting, sightingMatcher);
         when(sightingRepository.findAll(sightingExample)).thenReturn(new ArrayList<Sighting>());
-        this.mockMvc.perform(get("/sighting/bird/" + birdName)).andDo(print()).andExpect(status().is5xxServerError());
+        this.mockMvc.perform(get("/sighting/bird/" + birdName)).andDo(print()).andExpect(status().isOk());
     }
 
     @Test
