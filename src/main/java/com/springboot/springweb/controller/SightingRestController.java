@@ -1,6 +1,5 @@
 package com.springboot.springweb.controller;
 
-import com.springboot.springweb.entity.Bird;
 import com.springboot.springweb.entity.Sighting;
 import com.springboot.springweb.exception.ResourceNotFoundException;
 import com.springboot.springweb.repository.BirdRepository;
@@ -61,20 +60,6 @@ public class SightingRestController {
         Example<Sighting> example = Example.of(s, matcher);
         List<Sighting> ls = sightingRepo.findAll(example);
         return new ResponseEntity<>(ls, HttpStatus.OK);
-    }
-
-    @GetMapping("/sighting/birdid/{birdId}")
-    public List<Sighting> getSightingByColor(@PathVariable("birdId") long birdId) {
-        LOGGER.info("finding sighting by birdId " + birdId);
-
-        Bird b = birdRepo.getById(birdId);
-        Sighting sighting = new Sighting();
-        sighting.setBird(b);
-
-        ExampleMatcher matcher = ExampleMatcher.matchingAny();
-
-        Example<Sighting> example = Example.of(sighting, matcher);
-        return sightingRepo.findAll(example);
     }
 
     @GetMapping("/sighting/bird/{birdName}")

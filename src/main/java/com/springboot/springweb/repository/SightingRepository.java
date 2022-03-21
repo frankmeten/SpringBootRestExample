@@ -11,7 +11,7 @@ public interface SightingRepository extends JpaRepository<Sighting, Long> {
 
     List<Sighting> findAllBySightingTimeBetween(Date publicationTimeStart, Date publicationTimeEnd);
 
-    @Query(value = "SELECT s FROM Sighting s join Bird b on s.bird = b.id  where b.name =:birdName"
-    )
+    @Query(value = "SELECT s FROM Sighting s join Bird b on s.bird = b.id  where b.name =:birdName")
     List<Sighting> findAllByBirdName(String birdName);
+
 }
