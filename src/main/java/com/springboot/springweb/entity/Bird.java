@@ -10,23 +10,23 @@ import javax.persistence.*;
 public class Bird {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     @Column(columnDefinition = "varchar(30)")
     private String name;
     @Column(columnDefinition = "varchar(20)")
     private String color;
-    private double weight;
-    private double height;
+    private Double weight;
+    private Double height;
 
 
     public Bird() {
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -46,19 +46,19 @@ public class Bird {
         this.color = color;
     }
 
-    public double getWeight() {
+    public Double getWeight() {
         return weight;
     }
 
-    public void setWeight(double weight) {
+    public void setWeight(Double weight) {
         this.weight = weight;
     }
 
-    public double getHeight() {
+    public Double getHeight() {
         return height;
     }
 
-    public void setHeight(double height) {
+    public void setHeight(Double height) {
         this.height = height;
     }
 }

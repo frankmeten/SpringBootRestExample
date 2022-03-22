@@ -19,46 +19,12 @@ public class BirdRestController {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(BirdRestController.class);
 
-    @GetMapping("/bird/")
-    public List<Bird> getAllBirds() {
+    @PostMapping("/getBird/")
+    public List<Bird> getBirds(@RequestBody Bird bird) {
 
-        return birdRepo.findAll();
-    }
-
-    @GetMapping("/bird/{id}")
-    public Bird getBird(@PathVariable("id") long id) {
-        LOGGER.info("finding bird by id " + id);
-        return birdRepo.findById(id).get();
-    }
-
-    @GetMapping("/bird/name/{name}")
-    public List<Bird> getBirdByName(@PathVariable("name") String name) {
-        LOGGER.info("finding bird by name " + name);
-
-        Bird bird = new Bird();
-        bird.setName(name);
-
-        ExampleMatcher matcher = ExampleMatcher.matchingAny();
-
+        ExampleMatcher matcher = ExampleMatcher.matchingAll();
         Example<Bird> example = Example.of(bird, matcher);
         return birdRepo.findAll(example);
-    }
-
-    @GetMapping("/bird/color/{color}")
-    public List<Bird> getBirdByColor(@PathVariable("color") String color) {
-        LOGGER.info("finding bird by color " + color);
-        Bird bird = new Bird();
-        bird.setColor(color);
-        ExampleMatcher matcher = ExampleMatcher.matchingAny();
-        Example<Bird> example = Example.of(bird, matcher);
-        return birdRepo.findAll(example);
-    }
-
-    @GetMapping("/bird/name/{name}/color/{color}")
-    public Bird getBirdByNameColor(@PathVariable("name") String name, @PathVariable("color") String color) {
-        LOGGER.info("finding bird by name " + name + "by color " + color);
-
-        return birdRepo.findByNameAndColor(name, color);
     }
 
     @PostMapping("/bird/")
